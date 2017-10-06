@@ -1556,6 +1556,7 @@ The field type of the object is specified by OBJ-REF."
              (packagep form)
              (pathnamep form)
              (arrayp form)
+             (hash-table-p form)
              (structure-object-p form)
              (standard-object-p form)
              (java:java-object-p form))

@@ -50,5 +50,20 @@
 	(%make-hash-table test size 
                           rehash-size rehash-threshold))))
 
-    
-  
+(defmethod make-load-form ((hash-table hash-table) &optional environment)
+  (declare (ignore environment))
+  (let ((weakness (hash-table-weakness hash-table)))
+    (values
+     `(,(if weakness '%make-weak-hash-table '%make-hash-table)
+       (function ,(hash-table-test hash-table))
+       ,(hash-table-size hash-table)
+       ,(hash-table-rehash-size hash-table)
+       ,(hash-table-rehash-threshold hash-table)
+       ,@(when weakness
+           (list weakness)))
+     `(dolist (entry '(,@(let (entries)
+                           (maphash (lambda (key value)
+                                      (push (cons key value) entries))
+                                    hash-table)
+                           entries)))
+        (setf (gethash (car entry) ,hash-table) (cdr entry))))))

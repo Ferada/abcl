@@ -92,7 +92,8 @@
       ((vectorp object) (df-check-vector object))
       ((or (structure-object-p object)
            (standard-object-p object)
-           (java:java-object-p object))
+           (java:java-object-p object)
+           (hash-table-p object))
        (df-check-instance object)))))
 
 (defun df-handle-circularity (object stream within-list)
@@ -208,7 +209,8 @@
            (dump-vector object stream))
           ((or (structure-object-p object) ;; FIXME instance-p
                (standard-object-p object)
-               (java:java-object-p object))
+               (java:java-object-p object)
+               (hash-table-p object))
            (dump-instance object stream))
           ((and (symbolp object) ;; uninterned symbol
                 (null (symbol-package object)))
