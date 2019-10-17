@@ -2329,6 +2329,7 @@ public final class Lisp
   {
     Symbol.READ_SUPPRESS.initializeSpecial(NIL);
     Symbol.DEBUGGER_HOOK.initializeSpecial(NIL);
+    Symbol.EXIT_HOOKS.initializeSpecial(NIL);
   }
 
   static

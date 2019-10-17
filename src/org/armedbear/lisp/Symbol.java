@@ -3096,6 +3096,8 @@ public class Symbol extends LispObject implements java.io.Serializable
     PACKAGE_SYS.addExternalSymbol("ENSURE-INPUT-STREAM");
   public static final Symbol ENVIRONMENT =
     PACKAGE_SYS.addExternalSymbol("ENVIRONMENT");
+  public static final Symbol EXIT_HOOKS =
+    PACKAGE_SYS.addExternalSymbol("*EXIT-HOOKS*");
   public static final Symbol FINALIZED_P =
     PACKAGE_SYS.addExternalSymbol("FINALIZED-P");
   public static final Symbol FLOAT_UNDERFLOW_MODE =

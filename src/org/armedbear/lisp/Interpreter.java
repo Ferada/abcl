@@ -57,6 +57,8 @@ public final class Interpreter
     private static boolean help = false;
     private static boolean doubledash = false;
 
+    private final Thread exitHooks;
+
     public static synchronized Interpreter getInstance()
     {
         return interpreter;
@@ -143,6 +145,7 @@ public final class Interpreter
         jlisp = false;
         inputStream = null;
         outputStream = null;
+        exitHooks = ExitHooks.setupHooks();
     }
 
     private Interpreter(InputStream inputStream, OutputStream outputStream,
@@ -156,6 +159,7 @@ public final class Interpreter
         if (!initialDirectory.endsWith(File.separator))
             initialDirectory = initialDirectory.concat(File.separator);
         Symbol.DEFAULT_PATHNAME_DEFAULTS.setSymbolValue(new Pathname(initialDirectory));
+        exitHooks = ExitHooks.setupHooks();
     }
 
     // Interface.
@@ -464,6 +468,8 @@ public final class Interpreter
 
     public void kill(int status)
     {
+        ExitHooks.removeHooks(exitHooks);
+        ExitHooks.executeHooks();
         if (jlisp) {
             try {
                 inputStream.close();
