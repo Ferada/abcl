@@ -207,7 +207,7 @@ public final class RandomState extends LispObject
         }
     };
 
-    // ### make-random-state &optional state
+    // ### make-random-state &optional state => random-state
     private static final Primitive MAKE_RANDOM_STATE =
         new Primitive(Symbol.MAKE_RANDOM_STATE, "&optional state")
     {
@@ -230,6 +230,7 @@ public final class RandomState extends LispObject
         }
     };
 
+    // ### read-random-state state => random-state
     private static final Primitive READ_RANDOM_STATE =
         new Primitive(Symbol.READ_RANDOM_STATE, "state")
     {
@@ -243,7 +244,7 @@ public final class RandomState extends LispObject
         }
     };
 
-    // ### random-state-p
+    // ### random-state-p object => boolean
     private static final Primitive RANDOM_STATE_P =
         new Primitive(Symbol.RANDOM_STATE_P, "object")
     {
