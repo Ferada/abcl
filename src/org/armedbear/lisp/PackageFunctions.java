@@ -215,6 +215,24 @@ public final class PackageFunctions
         }
     };
 
+    // ### %find-existing-package name => package
+    private static final Primitive _FIND_EXISTING_PACKAGE =
+        new Primitive("%find-existing-package", PACKAGE_SYS, false, "name")
+    {
+        @Override
+        public LispObject execute(LispObject arg)
+        {
+            if (args.length != 1)
+                return error(new WrongNumberOfArgumentsException(this, 1));
+            final String name = args[0].getStringValue();
+            final Package pkg = Packages.findPackageGlobally(name);
+            if (pkg == null)
+                return error(new PackageError("Can't find a package named " + name + ".", name));
+            return pkg;
+        }
+    };
+
+
     // ### unuse-package
     // unuse-package packages-to-unuse &optional package => t
     private static final Primitive USE_PACKAGE =

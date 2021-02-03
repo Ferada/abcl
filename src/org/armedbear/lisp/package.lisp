@@ -117,3 +117,7 @@
               local-nickname package-designator actual-package))
     (sys::%add-package-local-nickname local-nickname actual-package
                                       package-designator)))
+
+(defmethod make-load-form ((package package) &optional environment)
+  (declare (ignore environment))
+  `(sys::%find-existing-package ,(package-name package)))
